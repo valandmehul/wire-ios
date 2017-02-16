@@ -70,7 +70,14 @@ final public class CollectionsViewController: UIViewController {
             }
             
             if self.inOverviewMode && self.fetchingDone && !self.openCollectionsIsTracked {
-                Analytics.shared()?.tagCollectionOpen(for: self.collection.conversation, itemCount: UInt(self.totalNumberOfElements()))
+                Analytics.shared()?.tagCollectionOpen(
+                    for: self.collection.conversation,
+                    itemCount: UInt(self.totalNumberOfElements()),
+                    withSearchResults: isShowingSearchResults
+                )
+
+                // TODO: This might prohibit the tracking call when coming back to a collection
+                // showing search results from the conversation view
                 self.openCollectionsIsTracked = true
             }
         }
